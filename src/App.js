@@ -17,13 +17,6 @@ function App() {
     const resData = data?.products || [];
     return resData;
   }, [data]);
-
-  // const _handleChange = (e) => {
-  //   let listItems = [];
-  //   listItems.push(e.target.value);
-  //   console.log(listItems, "::::");
-  // };
-
   return (
     <div>
       <CheckList product={productsData} />
