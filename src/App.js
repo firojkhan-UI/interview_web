@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect, useMemo } from "react";
+import CheckList from "./components/CheckList";
+
+const API_URL = "https://dummy.restapiexample.com/api/v1/employees";
+const API_PRODUCT_URL = "https://dummyjson.com/products";
 
 function App() {
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    fetch(API_PRODUCT_URL)
+      .then((data) => data.json())
+      .then((res) => setData(res));
+  }, []);
+
+  const productsData = useMemo(() => {
+    const resData = data?.products || [];
+    return resData;
+  }, [data]);
+
+  // const _handleChange = (e) => {
+  //   let listItems = [];
+  //   listItems.push(e.target.value);
+  //   console.log(listItems, "::::");
+  // };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <CheckList product={productsData} />
     </div>
   );
 }
